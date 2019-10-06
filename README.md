@@ -1,7 +1,7 @@
 # Bombear
 Online multiplayer game
 
-My first and last big project from high school.
+My bigest project from high school.
 
 - Server: Node.js
 - Client: JavaScript, HTML/CSS
