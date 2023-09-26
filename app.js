@@ -8,7 +8,8 @@ app.get('/',function(req, res) {
 });
 app.use('/client',express.static(__dirname + '/client'));
  
-serv.listen(process.env.PORT);
+serv.listen(8000);
+
 console.log("Server started.");
 
               //////   LIST   \\\\\\
@@ -1450,6 +1451,8 @@ var nameCorrect = function(username){
 
               //////   INPUT OUTPUT   \\\\\\ 
 var io = require('socket.io')(serv,{});
+
+
 io.sockets.on('connection', function(socket){
     socket.id = Math.random();
     socket.emit('socketId',socket.id);
