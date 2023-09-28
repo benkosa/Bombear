@@ -1,195 +1,194 @@
-<!DOCTYPE HTML5> 
+<!DOCTYPE HTML5>
 <html>
-	<head> 
-    	<title>Bombear.io</title> 
-    	<link rel="stylesheet" href="/client/design.css">
-  	</head> 
-  	<body> 
 
-		<div id="signDiv">
-			<a href="https://node-js-bomberman-zhooty.c9users.io/">
-				<img src="/client/img/webDesign/bombear_head.png" style="width:auto;height:35%;">
-			</a>
-			<br>
-			
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+
+	<title>Bombear.io</title>
+	<link rel="stylesheet" href="/client/design.css">
+</head>
+
+<body>
+
+	<div id="signDiv">
+		<a>
+			<img src="/client/img/webDesign/bombear_head.png">
+		</a>
+		<div class="login">
 			<input id="signDiv-username" type="text" placeholder="Your name"></input>
-			
 			<button id="signDiv-signIn">Join Game</button>
-			<br>
-			
-			<input id="signDiv-AdminPassword" type="password" placeholder="Type password or try diferent username" style="display:none;"></input>
-			
-			<br>
-			<canvas id="television" width="400" height="400"></canvas>
-			<br>
-			<!-- <div id="banner">
-				<img src="/client/img/webDesign/HTML5_baner.png" style="width:auto;height:10%;">
-				<img src="/client/img/webDesign/nodejs_baner.png" style="width:auto;height:10%;" >
-			</div> -->
 		</div>
-		
-		<div id="gameDiv" style="display:none;">
-			
-			<div id="game" style="position:absolute;width:1010px;height:800px;">
-				<canvas id="ctx" width="800" height="800" style="position:absolute;top:0px;left:0px"></canvas>
-				
-				<script src="/client/js/images.js"></script>
-			
-				<div id="scoreUi" style="position:absolute;width:1010px;height:800px;">
-				
-					<div id="scoreDiv" style="display:none;">
-						<canvas id="ctxScore" width="200" height="200"></canvas>
-					</div>
-					
-					<div id="scoreDiv2" style="display:none;">
-						<canvas id="ctxScore2" width="200" height="200"></canvas>
-					</div>
-					
-					<div id="scoreDiv3" style="display:none;">
-						<canvas id="ctxScore3" width="200" height="200"></canvas>
-					</div>
-					
-					<div id="scoreDiv4" style="display:none;">
-						<canvas id="ctxScore4" width="200" height="200"></canvas>
-					</div>
-				
-				</div>
-				
-				<div id="ui" style="position:absolute;width:800px;height:800px;">
-					<button id="buttonMute" onclick="muteSound()" style="display:block;"></a>
+		<canvas id="television" width="400" height="400"></canvas>
+	</div>
+
+	<div id="gameDiv" style="display:none;">
+		<script src="/client/js/images.js"></script>
+		<div id="game-style">
+			<div id="game">
+				<canvas id="ctx" width="800" height="800"></canvas>
+
+				<div id="buttonMute">
+					<button id="buttonMute-style" onclick="muteSound()"></a>
 						🔊
 					</button>
-					
-					<button id="buttonPlay" onclick="playSound()" style="display:none;" ></a>
+				</div>
+
+				<div id="buttonPlay" style="display:none;">
+					<button id="buttonPlay-style" onclick="playSound()"></a>
 						🔇
 					</button>
-					
-					<button id="buttonStart" onclick="startNewGame()" style="display:none;">
-						Start new game
-					</button>
-					
-					<div id="chat-text">
-						Hello!<br>
-						Press "t" for chat
-					</div>
-					
-					<form id="chat-form" autocomplete="off">
-						<input id="chat-input" type="text" style="display:none;" autocomplete="false" name="hidden"></input>
-					</form>
 				</div>
-			
-			</div>
-			
-		</div>
-		
-		
-		<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-		
-		<script>
-			var socket = io();
-			var timeWhenGameStarted = Date.now();
-			var myId = 0;
-			var pasword;
-			var lobbyTimer = 10;
-			var inChat = false;
-			
-		////////////////////   SIGN   \\\\\\\\\\\\\\\\\\\\
-			var signDiv = document.getElementById('signDiv');
-			var signDivUsername = document.getElementById('signDiv-username');
-			var signDivSignIn = document.getElementById('signDiv-signIn');
-			var signForm = document.getElementById('sign-form');
-			var buttonStart = document.getElementById('buttonStart');
-			var buttonMute = document.getElementById('buttonMute');
-			var buttonPlay = document.getElementById('buttonPlay');
-			
-			signDivUsername.focus();
-			signDivUsername.select();
-			var signDivUsernameAdmin = document.getElementById('signDiv-AdminPassword');
-			var startMainLoop = false;
-			
-			signDivSignIn.addEventListener("keyup", function(event) {
-			    event.preventDefault();
-			    if (event.keyCode == 13) {
-			        signDivSignIn.click();
-			    }
-			});
 
-			signDivSignIn.onclick = function(){
-				signDivSignIn.style.display = 'none';
-				pasword = signDivUsernameAdmin.value;
-				socket.emit('signIn',{
-					username:signDivUsername.value,
-					password:pasword
-				});
-				turnOnTV = false;
+				<button id="buttonStart" onclick="startNewGame()" style="display:none;">
+					Start new game
+				</button>
+
+				<div id="chat-text">
+					Hello!<br>
+					Press "t" for chat
+				</div>
+
+				<form id="chat-form" autocomplete="off">
+					<input id="chat-input" type="text" style="display:none;" autocomplete="false" name="hidden"></input>
+				</form>
+
+			</div>
+
+			<div id="scoreUi">
+
+				<div id="scoreDiv" class="score" style="display:block;">
+					<canvas id="ctxScore" class="ctx-score" width="200" height="200"></canvas>
+				</div>
+
+				<div id="scoreDiv2" class="score" style="display:block;">
+					<canvas id="ctxScore2" class="ctx-score" width="200" height="200"></canvas>
+				</div>
+
+				<div id="scoreDiv3" class="score" style="display:block;">
+					<canvas id="ctxScore3" class="ctx-score" width="200" height="200"></canvas>
+				</div>
+
+				<div id="scoreDiv4" class="score" style="display:block;">
+					<canvas id="ctxScore4" class="ctx-score" width="200" height="200"></canvas>
+				</div>
+
+			</div>
+		</div>
+		<div id="mobile-ctrl">
+			<button onclick="mobileMove('up')">↑</button>
+			<div id="mobile-ctrl-middle">
+				<button onclick="mobileMove('left')">←</button>
+				<button onclick="plantBomb()">.</button>
+				<button onclick="mobileMove('right')">→</button>
+			</div>
+			<button onclick="mobileMove('down')">↓</button>
+		</div>
+
+	</div>
+
+
+	</div>
+
+
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+
+	<script>
+		var socket = io();
+		var timeWhenGameStarted = Date.now();
+		var myId = 0;
+		var pasword;
+		var lobbyTimer = 10;
+		var inChat = false;
+
+		////////////////////   SIGN   \\\\\\\\\\\\\\\\\\\\
+		var signDiv = document.getElementById('signDiv');
+		var signDivUsername = document.getElementById('signDiv-username');
+		var signDivSignIn = document.getElementById('signDiv-signIn');
+		var signForm = document.getElementById('sign-form');
+		var buttonStart = document.getElementById('buttonStart');
+		var buttonMute = document.getElementById('buttonMute');
+		var buttonPlay = document.getElementById('buttonPlay');
+
+		signDivUsername.focus();
+		signDivUsername.select();
+		var startMainLoop = false;
+
+		signDivSignIn.addEventListener("keyup", function (event) {
+			event.preventDefault();
+			if (event.keyCode == 13) {
+				signDivSignIn.click();
 			}
-			
-			socket.on('signInResponse',function(data){
-				if(data.success == true){
-					signDiv.style.display = 'none';
-					gameDiv.style.display = 'inline-block';
-					scoreDiv.style.display = 'inline-block';
-					startMainLoop = true;
-				}
-				if(data.success == 'full'){
-					alert("SERVER IS FULL :(");
-				}
-				if(data.success == 'admin'){
-					signDivSignIn.style.display = 'inline-block';
-					signDivUsernameAdmin.style.display = 'inline-block';
-					signDivUsernameAdmin.focus();
-					signDivUsernameAdmin.select();
-				}
+		});
+
+		signDivSignIn.onclick = function () {
+			signDivSignIn.style.display = 'none';
+			socket.emit('signIn', {
+				username: signDivUsername.value
 			});
-			
+			turnOnTV = false;
+		}
+
+		socket.on('signInResponse', function (data) {
+			if (data.success == true) {
+				signDiv.style.display = 'none';
+				gameDiv.style.display = 'inline-block';
+				scoreDiv.style.display = 'inline-block';
+				startMainLoop = true;
+			}
+			if (data.success == 'full') {
+				alert("SERVER IS FULL :(");
+			}
+		});
+
 		////////////////////   CHAT   \\\\\\\\\\\\\\\\\\\\
-			var chatText = document.getElementById('chat-text');
-			var chatInput = document.getElementById('chat-input');
-			var chatForm = document.getElementById('chat-form');
-			
+		var chatText = document.getElementById('chat-text');
+		var chatInput = document.getElementById('chat-input');
+		var chatForm = document.getElementById('chat-form');
+
+		chatInput.style.display = 'none';
+
+		socket.on('addToChat', function (data) {
+			chatText.innerHTML += '<div>' + data + '</div>';
+		});
+
+		socket.on('evalAnswer', function (data) {
+			console.log(data);
+		});
+
+
+		//ked sa stlaci enter po napisani spravy
+		chatForm.onsubmit = function (e) {
+			var a = 1;
+			var isValid = true;
+			for (var i = 1; i <= chatInput.value.length; i++)
+				if (chatInput.value[i] == " ") a++;
+			if (a == chatInput.value.length) isValid = false;
+			if (0 == chatInput.value.length) isValid = false;
+			chatInput.blur();
+			inChat = false;
+
 			chatInput.style.display = 'none';
-			
-			socket.on('addToChat',function(data){
-				chatText.innerHTML += '<div>' + data + '</div>';
-			});
-			
-			socket.on('evalAnswer',function(data){
-				console.log(data);
-			});
-			
-			
-			//ked sa stlaci enter po napisani spravy
-			chatForm.onsubmit = function(e){
-				var a = 1;
-				var isValid = true;
-				for(var i = 1; i <= chatInput.value.length;i++)
-					if(chatInput.value[i] == " ")a++;
-				if(a == chatInput.value.length)isValid = false;
-				if(0 == chatInput.value.length)isValid = false;
-				chatInput.blur();
-				inChat = false;
-				
-				chatInput.style.display = 'none';
-			    chatText.style.background = 'rgba(255, 255, 255,0.1)';
-			    chatText.style.height = 75;
-			    chatText.style.bottom = 0;
-			    	
-				e.preventDefault();
-				if(chatInput.value[0] === '/')
-					socket.emit('evalServer',chatInput.value.slice(1));
-				else if (isValid)
-					socket.emit('sendMsgToServer',chatInput.value);
-				chatInput.value = '';		
-			}
+			chatText.style.background = 'rgba(255, 255, 255,0.1)';
+			chatText.style.height = 75;
+			chatText.style.bottom = 0;
+
+			e.preventDefault();
+			if (chatInput.value[0] === '/')
+				socket.emit('evalServer', chatInput.value.slice(1));
+			else if (isValid)
+				socket.emit('sendMsgToServer', chatInput.value);
+			chatInput.value = '';
+		}
 		////////////////////   ui   \\\\\\\\\\\\\\\\\\\\
 		var mute = true;
 
-		var muteSound = function(){
+		var muteSound = function () {
 			mute = false;
 			buttonMute.style.display = 'none';
 			buttonPlay.style.display = 'block';
 		}
-		var playSound = function(){
+		var playSound = function () {
 			var bSound = new Audio('/client/sound/hit.mp3');
 			bSound.volume = 0.3;
 			bSound.play();
@@ -197,15 +196,15 @@
 			buttonMute.style.display = 'block';
 			buttonPlay.style.display = 'none';
 		}
-		
-		socket.on('dead',function(){
-		    buttonStart.style.display = 'block';
+
+		socket.on('dead', function () {
+			buttonStart.style.display = 'block';
 		});
-		socket.on('Winner',function(){
-		    buttonStart.style.display = 'block';
-		}); 
-	
-		var startNewGame = function(){
+		socket.on('Winner', function () {
+			buttonStart.style.display = 'block';
+		});
+
+		var startNewGame = function () {
 			var bSound = new Audio('/client/sound/hit.mp3');
 			bSound.volume = 0.3;
 			bSound.play();
@@ -214,794 +213,814 @@
 			scoreDiv3.style.display = 'none';
 			scoreDiv2.style.display = 'none';
 			scoreDiv.style.display = 'none';
-				
-			
+
+
 			Player.list = {};
 			Block.list = {};
 			Bomb.list = {};
 			Explosion.list = {};
 			Item.list = {};
-			
+
 			buttonStart.style.display = 'none';
-			socket.emit('signIn',{
+			socket.emit('signIn', {
 				username: userName,
-				password:pasword
+				password: pasword
 			});
 			startMainLoop = false;
 		};
-		
-		
-					
-		////////////////////   GAME   \\\\\\\\\\\\\\\\\\\\
-			var ctx = document.getElementById("ctx").getContext("2d");
-			ctx.font = '30px Arial';
-			var ctxScore = [];
 
-				
-			ctxScore["ctxScore"] = document.getElementById("ctxScore").getContext("2d");
-			ctxScore["ctxScore2"] = document.getElementById("ctxScore2").getContext("2d");
-			ctxScore["ctxScore3"] = document.getElementById("ctxScore3").getContext("2d");
-			ctxScore["ctxScore4"] = document.getElementById("ctxScore4").getContext("2d");
-		    
-		              //////   LIST   \\\\\\
-			var Player = function(initPack){
-				var self = {};
-				self.id = initPack.id;
-				self.x = initPack.x;
-				self.y = initPack.y;
-				self.oldX = 0;
-				self.oldY = 0;
-				self.imgRealSirka = 250;
-			    self.imgRealVyska = 250;
-				self.imgSirka = 50;
-				self.imgVyska = 50;
-				self.imgCornerX = 0;
-				self.imgCornerY = 0;
-				self.img = Img.player[initPack.img];
-				self.name = initPack.name;
-				self.spd = initPack.spd;
-				self.pocetBomb = initPack.pocetBomb;
-        		self.power = initPack.power;
-        		self.hp = initPack.hp;
-        		self.antiStun = initPack.antiStun;
-				
-				Player.list[self.id] = self;
-				
-				return self;
+
+
+		////////////////////   GAME   \\\\\\\\\\\\\\\\\\\\
+		var ctx = document.getElementById("ctx").getContext("2d");
+		ctx.font = '30px Arial';
+		var ctxScore = [];
+
+
+		ctxScore["ctxScore"] = document.getElementById("ctxScore").getContext("2d");
+		ctxScore["ctxScore2"] = document.getElementById("ctxScore2").getContext("2d");
+		ctxScore["ctxScore3"] = document.getElementById("ctxScore3").getContext("2d");
+		ctxScore["ctxScore4"] = document.getElementById("ctxScore4").getContext("2d");
+
+		//////   LIST   \\\\\\
+		var Player = function (initPack) {
+			var self = {};
+			self.id = initPack.id;
+			self.x = initPack.x;
+			self.y = initPack.y;
+			self.oldX = 0;
+			self.oldY = 0;
+			self.imgRealSirka = 250;
+			self.imgRealVyska = 250;
+			self.imgSirka = 50;
+			self.imgVyska = 50;
+			self.imgCornerX = 0;
+			self.imgCornerY = 0;
+			self.img = Img.player[initPack.img];
+			self.name = initPack.name;
+			self.spd = initPack.spd;
+			self.pocetBomb = initPack.pocetBomb;
+			self.power = initPack.power;
+			self.hp = initPack.hp;
+			self.antiStun = initPack.antiStun;
+
+			Player.list[self.id] = self;
+
+			return self;
+		}
+		Player.list = {};
+
+		var Block = function (mapPack) {
+			var self = {
+				x: mapPack.x,
+				y: mapPack.y,
+				blockX: mapPack.blockX,
+				blockY: mapPack.blockY,
+				sirka: 50,
+				vyska: 50,
+				imgSirka: 50,
+				imgVyska: 50,
+				type: mapPack.type,
+				collision: mapPack.collision,
 			}
-			Player.list = {};
-			
-			var Block = function(mapPack){
-			    var self = { 
-			        x: mapPack.x,
-			        y: mapPack.y,
-			        blockX: mapPack.blockX,
-			        blockY: mapPack.blockY,
-			        sirka: 50,
-			        vyska: 50,
-			        imgSirka: 50,
-			        imgVyska: 50,
-			        type: mapPack.type,
-			        collision: mapPack.collision,
-			    }
-			    Block.list[self.blockX][self.blockY] = self;
-			    return self;
+			Block.list[self.blockX][self.blockY] = self;
+			return self;
+		}
+		Block.list = {};
+		Block.mapName = 'Lobby';
+
+		var Bomb = function (param) {
+			var self = {
+				blockX: param.blockX,
+				blockY: param.blockY,
+				id: param.id
 			}
-			Block.list = {};
-			Block.mapName = 'Lobby';
-			
-			var Bomb = function(param){
-			    	var self = {
-						blockX: param.blockX, 
-						blockY: param.blockY,
-						id: param.id
+			self.x = self.blockX * 50 - 25;
+			self.y = self.blockY * 50 - 25;
+			self.sirka = 50;
+			self.vyska = 50;
+			self.imgRealSirka = 250;
+			self.imgRealVyska = 250;
+			self.imgSirka = 65;
+			self.imgVyska = 65;
+			self.imgCornerY = 0;
+			self.img = Img.bomb;
+			self.explsionSound = new Audio('/client/sound/Explosion.mp3');
+			switch (param.power) {
+				case 1:
+					self.imgCornerX = 0;
+					break;
+				case 2:
+					self.imgCornerX = 250;
+					break;
+				case 3:
+					self.imgCornerX = 500;
+					break;
+				case 4:
+					self.imgCornerX = 750;
+					break;
+			}
+			return self;
+		}
+		Bomb.list = {}
+
+		var Explosion = function (param) {
+			var explosion = {
+				active: param.active,
+				blockX: param.blockX,
+				blockY: param.blockY,
+				timer: param.timer,
+
+				sirka: 50,
+				vyska: 50,
+				imgSirka: 45,
+				imgVyska: 45,
+				collision: false,
+				img: Img.explosion,
+
+
+			}
+			explosion.x = explosion.blockX * 50 - 25;
+			explosion.y = explosion.blockY * 50 - 25;
+
+			Explosion.list[explosion.blockX][explosion.blockY] = explosion;
+		}
+		Explosion.list = {}
+
+		var Item = function (param) {
+			var item = {
+				active: param.active,
+				blockX: param.blockX,
+				blockY: param.blockY,
+				type: param.type,
+				sirka: 35,
+				vyska: 35,
+			}
+			item.imgRealSirka = 70;
+			item.imgRealVyska = 70;
+			item.imgSirka = 35;
+			item.imgVyska = 35;
+			item.imgCornerY = 0;
+			item.img = Img.item;
+			item.soundHit = new Audio('/client/sound/pickUp.mp3');//hit
+			switch (item.type) {
+				case 'speed':
+					item.imgCornerX = 280;
+					break;
+				case 'power':
+					item.img = Img.bomb;
+					switch (Player.list[myId].power) {
+						case 1:
+							item.imgCornerX = 250;
+							break;
+						case 2:
+							item.imgCornerX = 500;
+							break;
+						case 3:
+							item.imgCornerX = 750;
+							break;
+						case 4:
+							item.imgCornerX = 750;
+							break;
 					}
-			        self.x = self.blockX * 50 - 25;
-			        self.y = self.blockY * 50 - 25;
-			        self.sirka = 50;
-			        self.vyska = 50;
-			        self.imgRealSirka = 250;
-			    	self.imgRealVyska = 250;
-			        self.imgSirka = 65;
-			        self.imgVyska = 65;
-			        self.imgCornerY = 0;
-			        self.img = Img.bomb;
-			        self.explsionSound = new Audio('/client/sound/Explosion.mp3');
-			        switch (param.power) {
-			        	case 1: 
-			        		self.imgCornerX = 0;
-			        		break;
-			        	case 2: 
-			        		self.imgCornerX = 250;
-			        		break;
-			        	case 3: 
-			        		self.imgCornerX = 500;
-			        		break;
-			        	case 4: 
-			        		self.imgCornerX = 750;
-			        		break;
-			        }
-			    return self;
+					item.imgRealSirka = 250;
+					item.imgRealVyska = 250;
+					break;
+				case 'bomb':
+					item.imgCornerX = 140;
+					break;
+				case 'hp':
+					item.imgCornerX = 0;
+					break;
+				case 'stun':
+					item.imgCornerX = 210;
+					break;
 			}
-			Bomb.list = {}
-			
-        	var Explosion = function(param){
-        	    var explosion = {
-        	        active: param.active,
-        	        blockX: param.blockX,
-        	        blockY: param.blockY,
-        	        timer: param.timer,
-        	        
-        	        sirka: 50,
-        	        vyska: 50,
-        	        imgSirka: 45,
-        	        imgVyska: 45,
-        	        collision: false,
-        	        img: Img.explosion,
-        	 
-        	        
-        	    }
-        	    explosion.x = explosion.blockX * 50 - 25;
-        	    explosion.y = explosion.blockY * 50 - 25;
-        	    
-        	    Explosion.list[explosion.blockX][explosion.blockY] = explosion;
-        	}
-        	Explosion.list = {}
-        	
-        	var Item = function(param){
-        	    var item = {
-        	        active: param.active,
-        	        blockX: param.blockX,
-        	        blockY: param.blockY,
-        	        type: param.type,
-        	        sirka: 35,
-        	        vyska: 35,
-        	    }
-        	    item.imgRealSirka = 70;
-			    item.imgRealVyska = 70;
-        	    item.imgSirka = 35;
-			    item.imgVyska = 35;
-			    item.imgCornerY = 0;
-			    item.img = Img.item;
-			    item.soundHit = new Audio('/client/sound/pickUp.mp3');//hit
-			    switch(item.type){
-        	    	case 'speed':
-        	    		item.imgCornerX = 280;
-        	    		break;
-        	    	case 'power':
-						item.img = Img.bomb;
-				        switch (Player.list[myId].power) {
-				        	case 1: 
-				        		item.imgCornerX = 250;
-				        		break;
-				        	case 2: 
-				        		item.imgCornerX = 500;
-				        		break;
-				        	case 3: 
-				        		item.imgCornerX = 750;
-				        		break;
-				        	case 4: 
-				        		item.imgCornerX = 750;
-				        		break;
-				        }
-				        item.imgRealSirka = 250;
-			    		item.imgRealVyska = 250;
-        	    		break;
-        	    	case 'bomb':
-        	    		item.imgCornerX = 140;
-        	    		break;
-        	    	case 'hp':
-        	    		item.imgCornerX = 0;
-        	    		break;
-        	    	case 'stun':
-        	    		item.imgCornerX = 210;
-        	    		break;
-        	    }
-        	    item.x = item.blockX * 50 - 25;
-        	    item.y = item.blockY * 50 - 25;
-        	
-        		Item.list[item.blockX][item.blockY] = item;
-        	}
-        	Item.list = {}
-        	
-			
-		              //////   EMIT   \\\\\\ 
-		    document.onkeydown = function(event){
-			    if(!inChat){    
-			        if(event.keyCode === 68
-			        || event.keyCode === 39)    //d
-			            socket.emit('keyPress',{inputId:'right',state:true});
-			        else if(event.keyCode === 83
-			        || event.keyCode === 40)    //s
-			            socket.emit('keyPress',{inputId:'down',state:true});
-			        else if(event.keyCode === 65
-			        || event.keyCode === 37)  //a
-			            socket.emit('keyPress',{inputId:'left',state:true});
-			        else if(event.keyCode === 87
-			        || event.keyCode === 38)  // w
-			            socket.emit('keyPress',{inputId:'up',state:true});	
-					else if(event.keyCode === 32) // w
-				    	socket.emit('keyPress',{inputId:'space',state:true});
-			    }    
-			    if(event.keyCode === 84 && !inChat){ //t
-			   
-			    	chatInput.style.display = 'block';
-			    	chatText.style.background = 'rgba(255, 255, 255,0.3)';
-			    	chatText.style.height = 250;
-			    	chatText.style.bottom = 50;
-			    	
-			    	
-			    	chatInput.focus();
-					chatInput.select();
-					socket.emit('keyPress',{inputId:'stop'});
-			    }
-		           
-		    }
-		    
-		    document.onkeyup = function(event){
-			    if(!inChat){
-			        if(event.keyCode === 68
-			        || event.keyCode === 39)     //d
-			            socket.emit('keyPress',{inputId:'right',state:false});
-			        else if(event.keyCode === 83
-			        || event.keyCode === 40)    //s
-			            socket.emit('keyPress',{inputId:'down',state:false});
-			        else if(event.keyCode === 65
-			        || event.keyCode === 37)  //a
-			            socket.emit('keyPress',{inputId:'left',state:false});
-			        else if(event.keyCode === 87
-			        || event.keyCode === 38)  // w
-			            socket.emit('keyPress',{inputId:'up',state:false});
-					else if(event.keyCode === 32) // w
-				    	socket.emit('keyPress',{inputId:'space',state:false});
-			    }    
-			    if(event.keyCode === 84 && !inChat){
-					chatInput.value = "";
-					inChat = true;
-			    }
-			    if(event.keyCode === 27){
-					chatInput.blur();
-					inChat = false;
-					chatInput.style.display = 'none';
-			    	chatText.style.background = 'rgba(255, 255, 255,0.1)';
-			    	chatText.style.height = 75;
-			    	chatText.style.bottom = 0;
-			    }
-		    }
-		    
-		    document.onclick = function(mouse){
-		    	chatInput.blur();
+			item.x = item.blockX * 50 - 25;
+			item.y = item.blockY * 50 - 25;
+
+			Item.list[item.blockX][item.blockY] = item;
+		}
+		Item.list = {}
+
+		var lastPressed = "space";
+
+		var mobileMove = function (direction) {
+			socket.emit('keyPress', { inputId: direction, state: true });
+
+			if (lastPressed != "space" && lastPressed != direction) {
+				socket.emit('keyPress', { inputId: lastPressed, state: false });
+			}
+			lastPressed = direction;
+		}
+
+		var plantBomb = function () {
+			socket.emit('keyPress', { inputId: "space", state: true });
+			setTimeout(function () {
+				socket.emit('keyPress', { inputId: "space", state: true });
+			}, 100);
+		}
+
+		//////   EMIT   \\\\\\ 
+		document.onkeydown = function (event) {
+			if (!inChat) {
+				if (event.keyCode === 68
+					|| event.keyCode === 39)    //d
+					socket.emit('keyPress', { inputId: 'right', state: true });
+				else if (event.keyCode === 83
+					|| event.keyCode === 40)    //s
+					socket.emit('keyPress', { inputId: 'down', state: true });
+				else if (event.keyCode === 65
+					|| event.keyCode === 37)  //a
+					socket.emit('keyPress', { inputId: 'left', state: true });
+				else if (event.keyCode === 87
+					|| event.keyCode === 38)  // w
+					socket.emit('keyPress', { inputId: 'up', state: true });
+				else if (event.keyCode === 32) // w
+					socket.emit('keyPress', { inputId: 'space', state: true });
+			}
+			if (event.keyCode === 84 && !inChat) { //t
+
+				chatInput.style.display = 'block';
+				chatText.style.background = 'rgba(255, 255, 255,0.3)';
+				chatText.style.height = 250;
+				chatText.style.bottom = 50;
+
+
+				chatInput.focus();
+				chatInput.select();
+				socket.emit('keyPress', { inputId: 'stop' });
+			}
+
+		}
+
+		document.onkeyup = function (event) {
+			if (!inChat) {
+				if (event.keyCode === 68
+					|| event.keyCode === 39)     //d
+					socket.emit('keyPress', { inputId: 'right', state: false });
+				else if (event.keyCode === 83
+					|| event.keyCode === 40)    //s
+					socket.emit('keyPress', { inputId: 'down', state: false });
+				else if (event.keyCode === 65
+					|| event.keyCode === 37)  //a
+					socket.emit('keyPress', { inputId: 'left', state: false });
+				else if (event.keyCode === 87
+					|| event.keyCode === 38)  // w
+					socket.emit('keyPress', { inputId: 'up', state: false });
+				else if (event.keyCode === 32) // w
+					socket.emit('keyPress', { inputId: 'space', state: false });
+			}
+			if (event.keyCode === 84 && !inChat) {
+				chatInput.value = "";
+				inChat = true;
+			}
+			if (event.keyCode === 27) {
+				chatInput.blur();
 				inChat = false;
 				chatInput.style.display = 'none';
-			    chatText.style.background = 'rgba(255, 255, 255,0.1)';
-			    chatText.style.height = 75;
-			    chatText.style.bottom = 0;
+				chatText.style.background = 'rgba(255, 255, 255,0.1)';
+				chatText.style.height = 75;
+				chatText.style.bottom = 0;
 			}
-		    
-		
-		              //////   ON   \\\\\\ 	
-		    var pingPackage;
-		    var pingSended;
-		    var ping;
-		    socket.on('socketId',function(data){
-		        myId = data;
-		        console.log(data);
-		    });  
-		    
-		    socket.on('pingBack',function(data){
-		        if(data.Package === pingPackage)
-		        	ping = Date.now()-pingSended;
-		    });   		              
-		              
-		    socket.on('init',function(data){
-				for(var i in data.initPack){
-					Player(data.initPack[i]);
+		}
+
+		document.onclick = function (mouse) {
+			chatInput.blur();
+			inChat = false;
+			chatInput.style.display = 'none';
+			chatText.style.background = 'rgba(255, 255, 255,0.1)';
+			chatText.style.height = 75;
+			chatText.style.bottom = 0;
+		}
+
+
+		//////   ON   \\\\\\ 	
+		var pingPackage;
+		var pingSended;
+		var ping;
+		socket.on('socketId', function (data) {
+			myId = data;
+			console.log(data);
+		});
+
+		socket.on('pingBack', function (data) {
+			if (data.Package === pingPackage)
+				ping = Date.now() - pingSended;
+		});
+
+		socket.on('init', function (data) {
+			for (var i in data.initPack) {
+				Player(data.initPack[i]);
+			}
+			reloadScore();
+		});
+
+		socket.on('loadMap', function (data) {
+			Block.mapName = data.name;
+			for (var x = 0; x <= 15; x++) {
+				Block.list[x + 1] = new Array(16);
+				Explosion.list[x + 1] = new Array(16);
+				Item.list[x + 1] = new Array(16);
+				for (var y = 0; y <= 15; y++) {
+					Block(data.mapPack[x][y]);
 				}
-				reloadScore();
-			});
-		    
-		    socket.on('loadMap',function(data){	
-				Block.mapName = data.name;
-				for(var x = 0; x<= 15; x++){
-					Block.list[x+1] = new Array(16);
-					Explosion.list[x+1] = new Array(16);
-					Item.list[x+1] = new Array(16);
-					for(var y = 0; y<= 15; y++){
-						Block(data.mapPack[x][y]);
-					}	
-				}
-				document.body.style.background = data.background;
-				
-				//if(data.name != 'Lobby'){
-					reloadScore();
-				//}
-			});
-			
-			socket.on('update',function(data){
-				for(var key in data){
-					if(Player.list[data[key].id] != undefined){
-					
+			}
+			document.body.style.background = data.background;
+
+			//if(data.name != 'Lobby'){
+			reloadScore();
+			//}
+		});
+
+		socket.on('update', function (data) {
+			for (var key in data) {
+				if (Player.list[data[key].id] != undefined) {
+
 					var player = Player.list[data[key].id];
-						switch (true) {
-							case (player.x != player.oldX
+					switch (true) {
+						case (player.x != player.oldX
 							&& player.y != player.oldY):
-								break;
-							case (player.x != player.oldX):
-								if(player.x > player.oldX)
-									player.imgCornerY = 500;
-								if(player.x < player.oldX)
-									player.imgCornerY = 750;
-								break;
-							case (player.y != player.oldY):
-								if(player.y > player.oldY)
-									player.imgCornerY = 0;
-								if(player.y < player.oldY)
-									player.imgCornerY = 250;
-								break;
-						}
-						player.oldX = player.x;
-						player.oldY = player.y;
-						
-						player.x = data[key].x;
-						player.y = data[key].y;
+							break;
+						case (player.x != player.oldX):
+							if (player.x > player.oldX)
+								player.imgCornerY = 500;
+							if (player.x < player.oldX)
+								player.imgCornerY = 750;
+							break;
+						case (player.y != player.oldY):
+							if (player.y > player.oldY)
+								player.imgCornerY = 0;
+							if (player.y < player.oldY)
+								player.imgCornerY = 250;
+							break;
 					}
+					player.oldX = player.x;
+					player.oldY = player.y;
+
+					player.x = data[key].x;
+					player.y = data[key].y;
 				}
+			}
+		});
+
+		socket.on('remove', function (data) {
+			delete Player.list[data.id];
+			reloadScore();
+		});
+
+		socket.on('generateBomb', function (data) {
+			Bomb.list[data.id] = Bomb(data);
+		});
+
+		socket.on('deleteBomb', function (data) {
+			var bomb = Bomb.list[data.pack[3].id];
+			Explosion({
+				blockX: bomb.blockX,
+				blockY: bomb.blockY,
+				active: true,
+				timer: 20,
 			});
-			
-			socket.on('remove',function(data){
-					delete Player.list[data.id];
-					reloadScore();
-			});
-			
-			socket.on('generateBomb',function(data){
-				Bomb.list[data.id] = Bomb(data);
-			});
-			
-			socket.on('deleteBomb',function(data){
-				var bomb = Bomb.list[data.pack[3].id];
-					Explosion({
-						blockX:bomb.blockX,
-						blockY:bomb.blockY,
-						active: true,
-						timer: 20,
-					});
-				
-				for(var i = 0; i <= data.pack[0].downY; i++){
-					Block.list[bomb.blockX][bomb.blockY+i].type = 'air';
-					Explosion({
-						blockX:bomb.blockX,
-						blockY:bomb.blockY+i,
-						active: true,
-						timer: 20,
-					});
-				}
-				for(var i = 0; i <= data.pack[1].upY; i++){
-					Block.list[bomb.blockX][bomb.blockY-i].type = 'air';
-					Explosion({
-						blockX:bomb.blockX,
-						blockY:bomb.blockY-i,
-						active: true,
-						timer: 20,
-					});
-				}
-				for(var i = 0; i <= data.pack[2].rightX; i++){
-					Block.list[bomb.blockX+i][bomb.blockY].type = 'air';
-					Explosion({
-						blockX:bomb.blockX+i,
-						blockY:bomb.blockY,
-						active: true,
-						timer: 20,
-					});
-				}
-				for(var i = 0; i <= data.pack[3].leftX; i++){
-					Block.list[bomb.blockX-i][bomb.blockY].type = 'air';
-					Explosion({
-						blockX:bomb.blockX-i,
-						blockY:bomb.blockY,
-						active: true,
-						timer: 20,
-					});
-				}
-				if(mute)Bomb.list[data.pack[3].id].explsionSound.play();
-				delete Bomb.list[data.pack[3].id];
-			});
-			
-			socket.on('statsUpdate',function(data){
-				Player.list[data[0].id].hp = data[0].hp;
-				Player.list[data[0].id].spd = data[0].spd;
-				Player.list[data[0].id].power = data[0].power;
-				Player.list[data[0].id].pocetBomb = data[0].pocetBomb;
-				Player.list[data[0].id].antiStun = data[0].antiStun;
-				if(data[0].x){
-					if(mute)Item.list[data[0].x][data[0].y].soundHit.play();
-					delete Item.list[data[0].x][data[0].y];
-				}
-				vypisScore();
-			});
-			
-			socket.on('newItem',function(data){
-				Item({
+
+			for (var i = 0; i <= data.pack[0].downY; i++) {
+				Block.list[bomb.blockX][bomb.blockY + i].type = 'air';
+				Explosion({
+					blockX: bomb.blockX,
+					blockY: bomb.blockY + i,
 					active: true,
-					blockX: data.blockX,
-					blockY: data.blockY,
-					type: data.type,
+					timer: 20,
 				});
-			});
-			
-			socket.on('changeSkin',function(data){
-				Player.list[data.id].imgCornerX = data.value;
-				if(data.value == 750){
-					Player.list[data.id].hp = 0;
-					vypisScore();
-				}
-			});
-			
-			socket.on('writeToLobby',function(data) {
-				lobbyTimer = data.time;
-				if(data.time == 0)reloadScore();
-			});
-			
-		              //////   FUNCTION   \\\\\\
-		              
-		    var updateScore = function(player) {
-						
-							var count = 6;
-							ctxScore[player.scoreId].clearRect(0,0,200,200);
-							ctxScore[player.scoreId].drawImage(Img.score,0,0);
-							
-							ctxScore[player.scoreId].drawImage(player.img,
-						        	0,0,player.imgRealSirka,player.imgRealVyska,
-						        	73,count,55,55);
-						    var corner = 0;
-						    switch(player.power){
-						    	case 1:
-						    		corner = 0;
-						    	break;
-						    	case 2:
-						    		corner = 250;
-						    	break;
-						    	case 3:
-						    		corner = 500;
-						    	break;
-						    	case 4:
-						    		corner = 750;
-						    	break;
-						    }
-						    ctxScore[player.scoreId].drawImage(Img.bomb,
-						        	corner,0,250,250,
-						        	28,15,50,50);
-						    if(player.antiStun)
-						    ctxScore[player.scoreId].drawImage(Img.item,
-						        	210,0,70,70,
-						        	128,22,40,40);
-						    ctxScore[player.scoreId].font = '20px Arial';   	
-							ctxScore[player.scoreId].textAlign = "center";
-							ctxScore[player.scoreId].fillText(Player.list[player.id].name,100,85);
-						    for(var i = 1; i<= player.hp;i++){
-						    	ctxScore[player.scoreId].drawImage(Img.item,
-						        	0,0,70,70,
-						        	count,95,30,30);
-						    	count+=30;
-						    }
-						    count = 6;
-						    for(var i = 3; i<= player.spd;i+=0.5){
-						    	if(i!=3 ^ i!=4 ^ i!=5 ^ i!=6 ^ i!=7){
-						    	ctxScore[player.scoreId].drawImage(Img.item,
-						        	280,0,35,75,
-						        	count,130,15,30);	
-						    	}else{
-						    	ctxScore[player.scoreId].drawImage(Img.item,
-						        	280,0,70,70,
-						        	count,130,30,30);
-						    	count+=30;	
-						    	}
-						    }
-						    count = 6;
-						    for(var i = 1; i<= player.pocetBomb;i++){
-						    	ctxScore[player.scoreId].drawImage(Img.bomb,
-						        	0,0,250,250,
-						        	count,165,30,30);
-						    	count+=30;
-						    }
-						    count = 6;
-						    ctxScore[player.scoreId].font = '30px Arial';  
-						    ctxScore[player.scoreId].textAlign = "left";   
-								
-						};
-						
-		    var nakresliObrazok = function(element){
-		            ctx.save();
-		            var x = element.x - element.imgSirka/2;
-		            var y = element.y - element.imgVyska/2;
-		            ctx.drawImage(element.img,0,0,element.img.width,element.img.height,x,y,element.imgSirka,element.imgVyska);
-		            ctx.restore();
-		    };
-		    
-		    var drawPlayer = function(element){
-		            ctx.save();
-		            var x = element.x - element.imgSirka/2;
-		            var y = element.y - element.imgVyska/2;
+			}
+			for (var i = 0; i <= data.pack[1].upY; i++) {
+				Block.list[bomb.blockX][bomb.blockY - i].type = 'air';
+				Explosion({
+					blockX: bomb.blockX,
+					blockY: bomb.blockY - i,
+					active: true,
+					timer: 20,
+				});
+			}
+			for (var i = 0; i <= data.pack[2].rightX; i++) {
+				Block.list[bomb.blockX + i][bomb.blockY].type = 'air';
+				Explosion({
+					blockX: bomb.blockX + i,
+					blockY: bomb.blockY,
+					active: true,
+					timer: 20,
+				});
+			}
+			for (var i = 0; i <= data.pack[3].leftX; i++) {
+				Block.list[bomb.blockX - i][bomb.blockY].type = 'air';
+				Explosion({
+					blockX: bomb.blockX - i,
+					blockY: bomb.blockY,
+					active: true,
+					timer: 20,
+				});
+			}
+			if (mute) Bomb.list[data.pack[3].id].explsionSound.play();
+			delete Bomb.list[data.pack[3].id];
+		});
 
-		            ctx.drawImage(element.img,
-		            	element.imgCornerX,element.imgCornerY,element.imgRealSirka,element.imgRealVyska,
-		            	x,y,element.imgSirka,element.imgVyska);
-		            ctx.restore();
-		    };
-			
-			var aktualizjeBlockList = function(){
-		        for(var x = 1; x <= 16; x++){
-		            for(var y = 1; y <= 16; y++){
-		                switch (Block.list[x][y].type) {
-		                    case 'air':
-		                        Block.list[x][y].img = Img.air;
-		                        Block.list[x][y].collision = false;
-		                        break;
-		                    case 'dirt':
-		                        Block.list[x][y].img = Img.block;
-		                        Block.list[x][y].collision = true;
-		                        break;
-		                    case 'wall':
-		                        Block.list[x][y].img = Img.wall;
-		                        Block.list[x][y].collision = true;
-		                        break;
-		                }
-		                
-		            }            
-		        }                    
-		    }
-		    
-		    var nakresliMapu = function(){
-		    	if(Block.mapName != 'Lobby')
-			        for(var x = 1; x <= 16; x++){
-			            for(var y = 1; y <= 16; y++){                 
-			                if(Block.list[x][y].type != 'air')nakresliObrazok(Block.list[x][y]);
-			            }
-			        }
-			    else{
-		        	ctx.drawImage(Img.lobby,0,0,800,800,0,0,800,800);
-		        	ctx.fillText(lobbyTimer, 315,393);
-			    }
-		    };
-		    
-		    function gotoBottom(id){
-			   var div = document.getElementById(id);
-			   div.scrollTop = div.scrollHeight - div.clientHeight;
+		socket.on('statsUpdate', function (data) {
+			Player.list[data[0].id].hp = data[0].hp;
+			Player.list[data[0].id].spd = data[0].spd;
+			Player.list[data[0].id].power = data[0].power;
+			Player.list[data[0].id].pocetBomb = data[0].pocetBomb;
+			Player.list[data[0].id].antiStun = data[0].antiStun;
+			if (data[0].x) {
+				if (mute) Item.list[data[0].x][data[0].y].soundHit.play();
+				delete Item.list[data[0].x][data[0].y];
 			}
-			
-			var vypisScore = function(){
-				for(var key in Player.list)
-					updateScore(Player.list[key]);
-				
+			vypisScore();
+		});
+
+		socket.on('newItem', function (data) {
+			Item({
+				active: true,
+				blockX: data.blockX,
+				blockY: data.blockY,
+				type: data.type,
+			});
+		});
+
+		socket.on('changeSkin', function (data) {
+			Player.list[data.id].imgCornerX = data.value;
+			if (data.value == 750) {
+				Player.list[data.id].hp = 0;
+				vypisScore();
 			}
-			
-			var reloadScore = function(){
-				var slot = 0;
-				scoreDiv4.style.display = 'none';
-				scoreDiv3.style.display = 'none';
-				scoreDiv2.style.display = 'none';
-				
-				for(var key in Player.list){
-					var player = Player.list[key];
-					
-					if(key == myId){
-						player.scoreId = "ctxScore";
-						scoreDiv.style.display = 'inline-block';
-					}else{
-						slot++;
-						switch (slot) {
-							case 1:
-								player.scoreId = "ctxScore2";
-								scoreDiv2.style.display = 'inline-block';
-								break;
-							case 2:
-								player.scoreId = "ctxScore3";
-								scoreDiv3.style.display = 'inline-block';
-								break;
-							case 3:
-								player.scoreId = "ctxScore4";
-								scoreDiv4.style.display = 'inline-block';
-								break;
-						}
+		});
+
+		socket.on('writeToLobby', function (data) {
+			lobbyTimer = data.time;
+			if (data.time == 0) reloadScore();
+		});
+
+		//////   FUNCTION   \\\\\\
+
+		var updateScore = function (player) {
+
+			var count = 6;
+			ctxScore[player.scoreId].clearRect(0, 0, 200, 200);
+			ctxScore[player.scoreId].drawImage(Img.score, 0, 0);
+
+			ctxScore[player.scoreId].drawImage(player.img,
+				0, 0, player.imgRealSirka, player.imgRealVyska,
+				73, count, 55, 55);
+			var corner = 0;
+			switch (player.power) {
+				case 1:
+					corner = 0;
+					break;
+				case 2:
+					corner = 250;
+					break;
+				case 3:
+					corner = 500;
+					break;
+				case 4:
+					corner = 750;
+					break;
+			}
+			ctxScore[player.scoreId].drawImage(Img.bomb,
+				corner, 0, 250, 250,
+				28, 15, 50, 50);
+			if (player.antiStun)
+				ctxScore[player.scoreId].drawImage(Img.item,
+					210, 0, 70, 70,
+					128, 22, 40, 40);
+			ctxScore[player.scoreId].font = '20px Arial';
+			ctxScore[player.scoreId].textAlign = "center";
+			ctxScore[player.scoreId].fillText(Player.list[player.id].name, 100, 85);
+			for (var i = 1; i <= player.hp; i++) {
+				ctxScore[player.scoreId].drawImage(Img.item,
+					0, 0, 70, 70,
+					count, 95, 30, 30);
+				count += 30;
+			}
+			count = 6;
+			for (var i = 3; i <= player.spd; i += 0.5) {
+				if (i != 3 ^ i != 4 ^ i != 5 ^ i != 6 ^ i != 7) {
+					ctxScore[player.scoreId].drawImage(Img.item,
+						280, 0, 35, 75,
+						count, 130, 15, 30);
+				} else {
+					ctxScore[player.scoreId].drawImage(Img.item,
+						280, 0, 70, 70,
+						count, 130, 30, 30);
+					count += 30;
+				}
+			}
+			count = 6;
+			for (var i = 1; i <= player.pocetBomb; i++) {
+				ctxScore[player.scoreId].drawImage(Img.bomb,
+					0, 0, 250, 250,
+					count, 165, 30, 30);
+				count += 30;
+			}
+			count = 6;
+			ctxScore[player.scoreId].font = '30px Arial';
+			ctxScore[player.scoreId].textAlign = "left";
+
+		};
+
+		var nakresliObrazok = function (element) {
+			ctx.save();
+			var x = element.x - element.imgSirka / 2;
+			var y = element.y - element.imgVyska / 2;
+			ctx.drawImage(element.img, 0, 0, element.img.width, element.img.height, x, y, element.imgSirka, element.imgVyska);
+			ctx.restore();
+		};
+
+		var drawPlayer = function (element) {
+			ctx.save();
+			var x = element.x - element.imgSirka / 2;
+			var y = element.y - element.imgVyska / 2;
+
+			ctx.drawImage(element.img,
+				element.imgCornerX, element.imgCornerY, element.imgRealSirka, element.imgRealVyska,
+				x, y, element.imgSirka, element.imgVyska);
+			ctx.restore();
+		};
+
+		var aktualizjeBlockList = function () {
+			for (var x = 1; x <= 16; x++) {
+				for (var y = 1; y <= 16; y++) {
+					switch (Block.list[x][y].type) {
+						case 'air':
+							Block.list[x][y].img = Img.air;
+							Block.list[x][y].collision = false;
+							break;
+						case 'dirt':
+							Block.list[x][y].img = Img.block;
+							Block.list[x][y].collision = true;
+							break;
+						case 'wall':
+							Block.list[x][y].img = Img.wall;
+							Block.list[x][y].collision = true;
+							break;
+					}
+
+				}
+			}
+		}
+
+		var nakresliMapu = function () {
+			if (Block.mapName != 'Lobby')
+				for (var x = 1; x <= 16; x++) {
+					for (var y = 1; y <= 16; y++) {
+						if (Block.list[x][y].type != 'air') nakresliObrazok(Block.list[x][y]);
 					}
 				}
-				
-				
-				
-				vypisScore();				
-			};
-			
-		              //////   MAIN LOOP   \\\\\\	
-			var count = 0;
-			
-			
-			setInterval(function(){
-		    count++;
-		    	if(count % 50 == 0){
-		    		pingPackage = Math.random();
-		    		socket.emit('pingEmit',{Package: pingPackage});
-		    		pingSended = Date.now();
-		    	}
-				if(startMainLoop){
-					gotoBottom('chat-text');
-					ctx.clearRect(0,0,800,800);
-					
-					ctx.save();
-        	    	ctx.fillStyle = "#FCF9CC";
-        	    	ctx.fillRect(0, 0, 800, 800);
-        	    	ctx.restore();
-					aktualizjeBlockList();
-					nakresliMapu();
-					
-					for(var i in Bomb.list)
-						drawPlayer(Bomb.list[i]);
-					
-					for(var x in Explosion.list)
-						for(var y in Explosion.list[x])
-							if(Explosion.list[x][y].active)
-								if(Explosion.list[x][y].timer-- <= 0)
-									Explosion.list[x][y].active = false
-								else
-									nakresliObrazok(Explosion.list[x][y]);
-					for(var x in Item.list)
-						for(var y in Item.list[x])
-							if(Item.list[x][y].active)
-								drawPlayer(Item.list[x][y])
-					
-						
-					for(var i in Player.list){
-						if(i != myId)drawPlayer(Player.list[i]);
-						/*ctx.save();
-						ctx.textAlign = "center";
-						if(Player.list[i].name.length < 8)
-							ctx.font = '15px Arial';
-						else
-							ctx.font = '10px Arial';
-						if(Player.list[i].name != "Player")ctx.fillText(Player.list[i].name, Player.list[i].x,Player.list[i].y-30);
-						ctx.restore();*/
-					}
-					drawPlayer(Player.list[myId]);
-							
-				ctx.font = '15px Arial';
-				ctx.fillText(ping,5,15);
-				ctx.font = '30px Arial';
-					
-				}
-			},20);
-			
-		
-			
-			
-		</script>
-		
-		<script>
-			var television = document.getElementById("television").getContext("2d");
-			var turnOnTV = true;
-			
-		    var drawBot = function(element){
-		            television.save();
-		            var x = element.x - element.ImgWidth/2;
-		            var y = element.y - element.ImgHeight/2;
+			else {
+				ctx.drawImage(Img.lobby, 0, 0, 800, 800, 0, 0, 800, 800);
+				ctx.fillText(lobbyTimer, 315, 393);
+			}
+		};
 
-		            television.drawImage(element.img,
-		            	0,element.imgCornerY,element.ImgRealWidth,element.ImgRealHeight,
-		            	x,y,element.ImgWidth,element.ImgHeight);
-		            television.restore();
-		    };
-		    
-		    var Bot = new Object();
-			    Bot.x = 125;
-			    Bot.y = 125;
-			    Bot.ImgRealWidth = 250;
-			    Bot.ImgRealHeight = 250;
-			    Bot.ImgWidth = 50;
-			    Bot.ImgHeight = 50;
-			    Bot.img = Img.player[1];
-			    Bot.Draw = true;
-			    Bot.imgCornerY = 0;
-		    
-		    var TV = new Object();
-			    TV.background = Img.tvBackgroundFirstMovie;
-			    TV.imgCornerX = 0;
-			 
-			var Buble = new Object();
-			    Buble.x = 200;
-			    Buble.y = 50;
-			    Buble.ImgRealWidth = 150;
-			    Buble.ImgRealHeight = 100;
-			    Buble.ImgWidth = 150;
-			    Buble.ImgHeight = 100;
-			    Buble.img = Img.movement;
-			    Buble.Draw = true;
-			    Buble.imgCornerY = 0;
-			
-			
-			
-			var count = -200;
-			setInterval(function(){if(turnOnTV){
-				
+		function gotoBottom(id) {
+			var div = document.getElementById(id);
+			div.scrollTop = div.scrollHeight - div.clientHeight;
+		}
+
+		var vypisScore = function () {
+			for (var key in Player.list)
+				updateScore(Player.list[key]);
+
+		}
+
+		var reloadScore = function () {
+			var slot = 0;
+			scoreDiv4.style.display = 'none';
+			scoreDiv3.style.display = 'none';
+			scoreDiv2.style.display = 'none';
+
+			for (var key in Player.list) {
+				var player = Player.list[key];
+
+				if (key == myId) {
+					player.scoreId = "ctxScore";
+					scoreDiv.style.display = 'inline-block';
+				} else {
+					slot++;
+					switch (slot) {
+						case 1:
+							player.scoreId = "ctxScore2";
+							scoreDiv2.style.display = 'inline-block';
+							break;
+						case 2:
+							player.scoreId = "ctxScore3";
+							scoreDiv3.style.display = 'inline-block';
+							break;
+						case 3:
+							player.scoreId = "ctxScore4";
+							scoreDiv4.style.display = 'inline-block';
+							break;
+					}
+				}
+			}
+
+
+
+			vypisScore();
+		};
+
+		//////   MAIN LOOP   \\\\\\	
+		var count = 0;
+
+
+		setInterval(function () {
 			count++;
-			
-				television.clearRect(0,0,400,400);
+			if (count % 50 == 0) {
+				pingPackage = Math.random();
+				socket.emit('pingEmit', { Package: pingPackage });
+				pingSended = Date.now();
+			}
+			if (startMainLoop) {
+				gotoBottom('chat-text');
+				ctx.clearRect(0, 0, 800, 800);
+
+				ctx.save();
+				ctx.fillStyle = "#FCF9CC";
+				ctx.fillRect(0, 0, 800, 800);
+				ctx.restore();
+				aktualizjeBlockList();
+				nakresliMapu();
+
+				for (var i in Bomb.list)
+					drawPlayer(Bomb.list[i]);
+
+				for (var x in Explosion.list)
+					for (var y in Explosion.list[x])
+						if (Explosion.list[x][y].active)
+							if (Explosion.list[x][y].timer-- <= 0)
+								Explosion.list[x][y].active = false
+							else
+								nakresliObrazok(Explosion.list[x][y]);
+				for (var x in Item.list)
+					for (var y in Item.list[x])
+						if (Item.list[x][y].active)
+							drawPlayer(Item.list[x][y])
+
+
+				for (var i in Player.list) {
+					if (i != myId) drawPlayer(Player.list[i]);
+					/*ctx.save();
+					ctx.textAlign = "center";
+					if(Player.list[i].name.length < 8)
+						ctx.font = '15px Arial';
+					else
+						ctx.font = '10px Arial';
+					if(Player.list[i].name != "Player")ctx.fillText(Player.list[i].name, Player.list[i].x,Player.list[i].y-30);
+					ctx.restore();*/
+				}
+				drawPlayer(Player.list[myId]);
+
+				ctx.font = '15px Arial';
+				ctx.fillText(ping, 5, 15);
+				ctx.font = '30px Arial';
+
+			}
+		}, 20);
+
+
+
+
+	</script>
+
+	<script>
+		var television = document.getElementById("television").getContext("2d");
+		var turnOnTV = true;
+
+		var drawBot = function (element) {
+			television.save();
+			var x = element.x - element.ImgWidth / 2;
+			var y = element.y - element.ImgHeight / 2;
+
+			television.drawImage(element.img,
+				0, element.imgCornerY, element.ImgRealWidth, element.ImgRealHeight,
+				x, y, element.ImgWidth, element.ImgHeight);
+			television.restore();
+		};
+
+		var Bot = new Object();
+		Bot.x = 125;
+		Bot.y = 125;
+		Bot.ImgRealWidth = 250;
+		Bot.ImgRealHeight = 250;
+		Bot.ImgWidth = 50;
+		Bot.ImgHeight = 50;
+		Bot.img = Img.player[1];
+		Bot.Draw = true;
+		Bot.imgCornerY = 0;
+
+		var TV = new Object();
+		TV.background = Img.tvBackgroundFirstMovie;
+		TV.imgCornerX = 0;
+
+		var Buble = new Object();
+		Buble.x = 200;
+		Buble.y = 50;
+		Buble.ImgRealWidth = 150;
+		Buble.ImgRealHeight = 100;
+		Buble.ImgWidth = 150;
+		Buble.ImgHeight = 100;
+		Buble.img = Img.movement;
+		Buble.Draw = true;
+		Buble.imgCornerY = 0;
+
+
+
+		var count = -200;
+		setInterval(function () {
+			if (turnOnTV) {
+
+				count++;
+
+				television.clearRect(0, 0, 400, 400);
 				television.drawImage(TV.background,
-		    		TV.imgCornerX,0,400,400,
-		    		0,0,400,400);
-		    	if(Bot.Draw)drawBot(Bot);
-		    	if(Buble.Draw)drawBot(Buble);
-		    	
-		    	if(count > 0)
-		    	switch (true) {
-		    		case (count < 50):
-		    			Bot.y+=2;
-		    			Buble.y+=2;
-		    			Buble.Draw = true;
-		    			Bot.imgCornerY = 0;
-		    			break;
-		    		case (count < 150):
-		    			Bot.x+=2;
-		    			Buble.x+=2;
-		    			Bot.imgCornerY = 500;
-		    			break;
-		    		case (count <= 155):
-		    			TV.imgCornerX = 400;
-		    			Buble.Draw = false;
-		    			Buble.img = Img.placeBomb;
-		    			Bot.x-=2;
-		    			Buble.x-=2;
-		    			break;
-		    		case (count < 250):
-		    			Bot.x-=2;
-		    			Buble.x-=2;
-		    			Bot.imgCornerY = 750;
-		    			if(count == 200) Buble.Draw = true;
-		    			break;
-		    		case (count <= 255):
-		    			TV.imgCornerX = 800;
-		    			Bot.y+=2;
-		    			Buble.y+=2;
-		    			break;
-		    		case (count < 300):
-		    			Bot.y+=2;
-		    			Buble.y+=2;
-		    			Bot.imgCornerY = 0;
-		    			break;
-		    		case (count <= 305):
-		    			TV.imgCornerX = 1200;
-		    			Bot.y+=2;
-		    			Buble.y+=2;
-		    			break;
-		    		case (count <= 400):
-		    			break;
-		    		case (count <= 1000):
-		    			Bot.x = 125;
-		    			Bot.y = 125;
-		    			Buble.x = 200;
-			    		Buble.y = 50;
-		    			TV.imgCornerX = 0;
-		    			Buble.img = Img.movement;
-		    			TV.background = Img.itemList1;
-		    			Buble.Draw = false;
-		    			Bot.Draw = false;		    			
-		    			break;
-		    		
-		    		case (count <= 1300):
-		    			TV.background = Img.itemList2;
-		    			break;
-		    		case (count >= 1500):
-		    			count = -100;
-		    			TV.background = Img.tvBackgroundFirstMovie;
-		    			Buble.Draw = true;
-		    			Bot.Draw = true;
-		    			break;
-		    			
-		    			
-   			
-		    		
-		    	}
-		    	
-			}},20);
-			
-			
-		</script>
-		
-	</body> 
-</html> 
+					TV.imgCornerX, 0, 400, 400,
+					0, 0, 400, 400);
+				if (Bot.Draw) drawBot(Bot);
+				if (Buble.Draw) drawBot(Buble);
+
+				if (count > 0)
+					switch (true) {
+						case (count < 50):
+							Bot.y += 2;
+							Buble.y += 2;
+							Buble.Draw = true;
+							Bot.imgCornerY = 0;
+							break;
+						case (count < 150):
+							Bot.x += 2;
+							Buble.x += 2;
+							Bot.imgCornerY = 500;
+							break;
+						case (count <= 155):
+							TV.imgCornerX = 400;
+							Buble.Draw = false;
+							Buble.img = Img.placeBomb;
+							Bot.x -= 2;
+							Buble.x -= 2;
+							break;
+						case (count < 250):
+							Bot.x -= 2;
+							Buble.x -= 2;
+							Bot.imgCornerY = 750;
+							if (count == 200) Buble.Draw = true;
+							break;
+						case (count <= 255):
+							TV.imgCornerX = 800;
+							Bot.y += 2;
+							Buble.y += 2;
+							break;
+						case (count < 300):
+							Bot.y += 2;
+							Buble.y += 2;
+							Bot.imgCornerY = 0;
+							break;
+						case (count <= 305):
+							TV.imgCornerX = 1200;
+							Bot.y += 2;
+							Buble.y += 2;
+							break;
+						case (count <= 400):
+							break;
+						case (count <= 1000):
+							Bot.x = 125;
+							Bot.y = 125;
+							Buble.x = 200;
+							Buble.y = 50;
+							TV.imgCornerX = 0;
+							Buble.img = Img.movement;
+							TV.background = Img.itemList1;
+							Buble.Draw = false;
+							Bot.Draw = false;
+							break;
+
+						case (count <= 1300):
+							TV.background = Img.itemList2;
+							break;
+						case (count >= 1500):
+							count = -100;
+							TV.background = Img.tvBackgroundFirstMovie;
+							Buble.Draw = true;
+							Bot.Draw = true;
+							break;
+
+
+
+
+					}
+
+			}
+		}, 20);
+
+
+	</script>
+
+</body>
+
+</html>

@@ -1357,17 +1357,6 @@ var changeSkin = function(player, value){
         SOCKET_LIST[Player.list[player.map][key].id].emit('changeSkin',{id:player.id,value: value});
 };
 
-var isAdminLogged = function(name){
-    if(name == 'Zhooty' 
-    || name == 'Benji'
-    || name == 'Kunji'
-    || name == 'Bunji'
-    || name == 'Kunjihadista')
-        return true;
-    else 
-        return false;
-};
-
 var setPlayerToLobby = function(freeSlotKey, player, socket, key){
     switch(true){
         case(freeSlotKey[1] == 'empty'):
@@ -1460,10 +1449,7 @@ io.sockets.on('connection', function(socket){
     var player;
     
     socket.on('signIn',function(data){
-    //adminske logovanie do hry    
-    if(isAdminLogged(data.username) && data.password != "keltik"){
-        socket.emit('signInResponse',{success:'admin'});
-    }else if(!isAdminLogged(data.username) || data.password == "keltik"){
+
         if(socket.map != undefined){
             delete Player.list[socket.map][socket.id];
             if(countArray(Player.list[socket.map]) == 0){
@@ -1536,7 +1522,7 @@ io.sockets.on('connection', function(socket){
             name: Block.list.setings.mapName
         });
 
-    }
+    
         
     });
    
@@ -1574,8 +1560,7 @@ io.sockets.on('connection', function(socket){
     });
    
     socket.on('evalServer',function(data){
-        if(!isAdminLogged(socket.username))
-            return;
+
         if(data[0]=="s" && data[1]=="a" && data[2]=="y" && data[3]==" " )
             message.say(data);
         else{
