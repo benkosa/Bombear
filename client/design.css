@@ -13,6 +13,13 @@ body {
     overflow: hidden
 }
 
+#git-link {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 30px;
+}
+
 
 #signDiv {
     display: flex;
