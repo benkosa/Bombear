@@ -45,7 +45,7 @@
 					Start new game
 				</button>
 
-				<div id="chat-text">
+				<div id="chat-text" onclick="openChat()">
 					Hello!<br>
 					Press "t" for chat
 				</div>
@@ -422,6 +422,25 @@
 			}, 100);
 		}
 
+		var openChat = function () {
+			console.log("test")
+			chatInput.style.display = 'block';
+			chatText.style.background = 'rgba(255, 255, 255,0.3)';
+			chatText.style.height = 250;
+			chatText.style.bottom = 50;
+
+
+			chatInput.focus();
+			chatInput.select();
+			socket.emit('keyPress', { inputId: 'stop' });
+
+			chatInput.value = "";
+			setTimeout(function () {
+				inChat = true;
+			}, 100);
+			
+		}
+
 		//////   EMIT   \\\\\\ 
 		document.onkeydown = function (event) {
 			if (!inChat) {
@@ -487,12 +506,14 @@
 		}
 
 		document.onclick = function (mouse) {
-			chatInput.blur();
-			inChat = false;
-			chatInput.style.display = 'none';
-			chatText.style.background = 'rgba(255, 255, 255,0.1)';
-			chatText.style.height = 75;
-			chatText.style.bottom = 0;
+			if (inChat == true) {
+				chatInput.blur();
+				inChat = false;
+				chatInput.style.display = 'none';
+				chatText.style.background = 'rgba(255, 255, 255,0.1)';
+				chatText.style.height = 75;
+				chatText.style.bottom = 0;
+			}
 		}
 
 

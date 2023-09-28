@@ -107,7 +107,8 @@ button:active {
     transform: translateY(4px);
 }
 
-#buttonPlay-style, #buttonMute-style {
+#buttonPlay-style,
+#buttonMute-style {
     position: absolute;
     top: 0px;
     right: 0px;
@@ -152,9 +153,11 @@ button:active {
     #game-style {
         flex-direction: column;
     }
+
     #scoreUi {
         flex-direction: row;
     }
+
     #mobile-ctrl {
         display: flex !important;
     }
@@ -162,8 +165,8 @@ button:active {
     .score {
         width: calc(100% / 4);
     }
-    
-  }
+
+}
 
 
 #game {
@@ -217,6 +220,18 @@ button:active {
     text-align: left;
 }
 
+#chat-input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    padding: 0;
+    padding-left: 20px;
+    margin: 0;
+}
+
 .ctx-score {
     width: 100%;
 }
@@ -228,6 +243,7 @@ button:active {
     flex-direction: column;
     gap: 20px;
 }
+
 #mobile-ctrl-middle {
     display: flex;
     flex-direction: row;
