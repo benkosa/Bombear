@@ -249,6 +249,12 @@ button:active {
     align-items: center;
     flex-direction: column;
     gap: 5px;
+
+    position: absolute;
+
+    left: 50%;
+    transform: translate(-50%, 0);
+    bottom: 10px;
 }
 
 #mobile-ctrl-middle {
