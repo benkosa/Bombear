@@ -136,11 +136,6 @@
 			turnOnTV = false;
 		}
 
-		socket.on('disconnect', function () {
-			console.log('Lost connection to the server');
-			// Handle the lost connection here, e.g., show a message to the user or attempt to reconnect.
-		});
-
 		socket.on('signInResponse', function (data) {
 			if (data.success == true) {
 				signDiv.style.display = 'none';
