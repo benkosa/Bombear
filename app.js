@@ -531,7 +531,7 @@ var message = {
         switch (--self.setings.closedTimer){
             case 3:
                 delete freeSlot[map];
-                message.server(map, '<font color="#FFD700"> Game starts in </font>' + '<font color="#FFD700">' + self.setings.closedTimer + '</font>' + '<font color="#FFD700"> second</font>');
+                message.server(map, '<font color="#FFD700"> Game starts in </font>' + '<font color="#FFD700">' + self.setings.closedTimer + '</font>' + '<font color="#FFD700"> s</font>');
                 
                 nacitaBlockList('dirt');
                 
@@ -574,10 +574,10 @@ var message = {
             
                 break;
             case 2:
-                message.server(map, '<font color="#FFD700"> Game starts in </font>' + '<font color="#FFD700">' + self.setings.closedTimer + '</font>' + '<font color="#FFD700"> second</font>');
+                message.server(map, '<font color="#FFD700"> Game starts in </font>' + '<font color="#FFD700">' + self.setings.closedTimer + '</font>' + '<font color="#FFD700"> s</font>');
                 break;
             case 1:
-                message.server(map, '<font color="#FFD700"> Game starts in </font>' + '<font color="#FFD700">' + self.setings.closedTimer + '</font>' + '<font color="#FFD700"> second</font>');
+                message.server(map, '<font color="#FFD700"> Game starts in </font>' + '<font color="#FFD700">' + self.setings.closedTimer + '</font>' + '<font color="#FFD700"> s</font>');
                 break;
             case 0:
                 message.server(map, '<font color="#FFD700"> Game started! </font>');
