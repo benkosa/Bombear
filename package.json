@@ -10,7 +10,9 @@
   },
   "scripts": {
     "start": "forever start app.js",
-    "stop": "forever stopall"
+    "stop": "forever stopall",
+    "restart": "npm run stop && npm run start",
+    "update": "git pull && npm run restart"
   },
   "author": "",
   "license": "ISC"
