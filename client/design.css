@@ -241,13 +241,13 @@ button:active {
     display: none;
     align-items: center;
     flex-direction: column;
-    gap: 20px;
+    gap: 5px;
 }
 
 #mobile-ctrl-middle {
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 5px;
 }
 
 #mobile-ctrl button {
