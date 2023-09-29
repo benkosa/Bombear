@@ -33,16 +33,12 @@
 			<div id="game">
 				<canvas id="ctx" width="800" height="800"></canvas>
 
-				<div id="buttonMute">
-					<button id="buttonMute-style" onclick="muteSound()">
-						🔊
-					</button>
+				<div id="buttonMute" onclick="muteSound()">
+					<div id="buttonMute-style">🔊</div>
 				</div>
 
-				<div id="buttonPlay" style="display:none;">
-					<button id="buttonPlay-style" onclick="playSound()">
-						🔇
-					</button>
+				<div id="buttonPlay" style="display:none;" onclick="playSound()">
+					<div id="buttonPlay-style">🔇</div>
 				</div>
 
 				<button id="buttonStart" onclick="startNewGame()" style="display:none;">

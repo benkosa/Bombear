@@ -114,15 +114,20 @@ button:active {
     transform: translateY(4px);
 }
 
+#buttonPlay,
+#buttonMute {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: calc(100% / 16);
+    width: calc(100% / 16);
+}
+
 #buttonPlay-style,
 #buttonMute-style {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-
-    height: calc(100% / 18);
-    width: calc(100% / 18);
-
+    height: 100%;
+    width: 100%;
+    font-size: larger;
     display: flex;
     justify-content: center;
     align-items: center;
