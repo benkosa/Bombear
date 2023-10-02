@@ -1,6 +1,19 @@
 @font-face {
-    font-family: Logo;
+    font-family: BaseFont;
     src: url('BRLNSR.TTF');
+}
+
+@font-face {
+    font-family: TitleFont;
+    src: url('BRLNSDB.TTF');
+}
+
+.base-font {
+    font-family: BaseFont;
+}
+
+.title-font {
+    font-family: TitleFont;
 }
 
 html,
@@ -59,6 +72,8 @@ body {
     outline: none;
     color: #000000;
     background: #ffffff;
+
+    font-size: 16px;
 
     border: 2px solid rgb(252, 249, 207);
 

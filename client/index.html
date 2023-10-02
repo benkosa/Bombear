@@ -21,8 +21,8 @@
 			<img src="/client/img/webDesign/bombear_head.png">
 		</a>
 		<div class="login">
-			<input id="signDiv-username" type="text" placeholder="Your name"></input>
-			<button id="signDiv-signIn">Join Game</button>
+			<input id="signDiv-username" class="base-font" type="text" placeholder="Your name"></input>
+			<button id="signDiv-signIn" class="base-font">Join Game</button>
 		</div>
 		<canvas id="television" width="400" height="400"></canvas>
 	</div>
@@ -132,11 +132,6 @@
 			turnOnTV = false;
 		}
 
-		socket.on('disconnect', function () {
-			console.log('Lost connection to the server');
-			// Handle the lost connection here, e.g., show a message to the user or attempt to reconnect.
-		});
-
 		socket.on('signInResponse', function (data) {
 			if (data.success == true) {
 				signDiv.style.display = 'none';
@@ -159,11 +154,6 @@
 		socket.on('addToChat', function (data) {
 			chatText.innerHTML += '<div>' + data + '</div>';
 		});
-
-		socket.on('evalAnswer', function (data) {
-			console.log(data);
-		});
-
 
 		//ked sa stlaci enter po napisani spravy
 		chatForm.onsubmit = function (e) {
@@ -430,7 +420,6 @@
 		}
 
 		var openChat = function () {
-			console.log("test")
 			chatInput.style.display = 'block';
 			chatText.style.background = 'rgba(255, 255, 255,0.3)';
 			chatText.style.height = 250;
@@ -530,7 +519,6 @@
 		var ping;
 		socket.on('socketId', function (data) {
 			myId = data;
-			console.log(data);
 		});
 
 		socket.on('pingBack', function (data) {
